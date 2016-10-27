@@ -2,23 +2,17 @@
 set nocompatible
 filetype off
 
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+""""""""""" Plugins """""""""""""
+call plug#begin('$VIM/plugged')
 
-Plugin 'VundleVim/Vundle.vim'
 "git interface
-Plugin 'tpope/vim-fugitive'
-"filesystem
-Plugin 'scrooloose/nerdtree'
-Plugin 'jistr/vim-nerdtree-tabs'
-Plugin 'kien/ctrlp.vim' 
+Plug 'tpope/vim-fugitive'
 
-"html
-"  isnowfy only compatible with python not python3
-Plugin 'isnowfy/python-vim-instant-markdown'
-Plugin 'jtratner/vim-flavored-markdown'
-Plugin 'suan/vim-instant-markdown'
-Plugin 'nelstrom/vim-markdown-preview'
+"filesystem
+Plug 'scrooloose/nerdtree'
+Plug 'jistr/vim-nerdtree-tabs'
+Plug 'kien/ctrlp.vim' 
+
 "python sytax checker
 Plugin 'nvie/vim-flake8'
 Plugin 'vim-scripts/Pydiction'
@@ -26,19 +20,17 @@ Plugin 'vim-scripts/indentpython.vim'
 Plugin 'scrooloose/syntastic'
 
 "auto-completion stuff
-"Plugin 'klen/python-mode'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'klen/rope-vim'
-"Plugin 'davidhalter/jedi-vim'
-Plugin 'ervandew/supertab'
+Plug 'Valloric/YouCompleteMe'
+Plug 'klen/rope-vim'
+Plug 'ervandew/supertab'
+
 ""code folding
-Plugin 'tmhedberg/SimpylFold'
+Plug 'tmhedberg/SimpylFold'
 
 "Colors!!!
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'jnurmine/Zenburn'
+Plug 'altercation/vim-colors-solarized'
 
-call vundle#end()
+call plug#end()
 
 filetype plugin indent on    " enables filetype detection
 let g:SimpylFold_docstring_preview = 1
@@ -49,10 +41,13 @@ let g:ycm_autoclose_preview_window_after_completion=1
 "custom keys
 let mapleader=" "
 map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
-"
-call togglebg#map("<F5>")
-"colorscheme zenburn
+
+colorscheme solarized
+set background=dark
+
 "set guifont=Monaco:h14
+set guifont=Inconsolata:h11:b
+map <F11> <Esc>:call libcallnr($VIM."\\gvimfullscreen.dll", "ToggleFullScreen", 0)<CR>
 
 let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
 
