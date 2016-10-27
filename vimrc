@@ -1,44 +1,35 @@
-"vundle
 set nocompatible
 filetype off
 
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+""""""""""" Plugins """""""""""""
+call plug#begin('$VIM/plugged')
 
-Plugin 'VundleVim/Vundle.vim'
 "git interface
-Plugin 'tpope/vim-fugitive'
-"filesystem
-Plugin 'scrooloose/nerdtree'
-Plugin 'jistr/vim-nerdtree-tabs'
-Plugin 'kien/ctrlp.vim' 
+Plug 'tpope/vim-fugitive'
 
-"html
-"  isnowfy only compatible with python not python3
-Plugin 'isnowfy/python-vim-instant-markdown'
-Plugin 'jtratner/vim-flavored-markdown'
-Plugin 'suan/vim-instant-markdown'
-Plugin 'nelstrom/vim-markdown-preview'
+"filesystem
+Plug 'scrooloose/nerdtree'
+Plug 'jistr/vim-nerdtree-tabs'
+Plug 'kien/ctrlp.vim' 
+
 "python sytax checker
-Plugin 'nvie/vim-flake8'
-Plugin 'vim-scripts/Pydiction'
-Plugin 'vim-scripts/indentpython.vim'
-Plugin 'scrooloose/syntastic'
+Plug 'nvie/vim-flake8'
+Plug 'vim-scripts/Pydiction'
+Plug 'vim-scripts/indentpython.vim'
+Plug 'scrooloose/syntastic'
 
 "auto-completion stuff
-"Plugin 'klen/python-mode'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'klen/rope-vim'
-"Plugin 'davidhalter/jedi-vim'
-Plugin 'ervandew/supertab'
+Plug 'Valloric/YouCompleteMe'
+Plug 'klen/rope-vim'
+Plug 'ervandew/supertab'
+
 ""code folding
-Plugin 'tmhedberg/SimpylFold'
+Plug 'tmhedberg/SimpylFold'
 
 "Colors!!!
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'jnurmine/Zenburn'
+Plug 'altercation/vim-colors-solarized'
 
-call vundle#end()
+call plug#end()
 
 filetype plugin indent on    " enables filetype detection
 let g:SimpylFold_docstring_preview = 1
@@ -49,10 +40,49 @@ let g:ycm_autoclose_preview_window_after_completion=1
 "custom keys
 let mapleader=" "
 map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
-"
-call togglebg#map("<F5>")
-"colorscheme zenburn
-"set guifont=Monaco:h14
+
+colorscheme solarized
+set background=dark
+
+if has('gui_running')
+    set guioptions-=r "Hide the right side scrollbar
+    set guioptions-=L "Hide the left side scrollbar
+    set guioptions-=T "Hide toolbars...this is vim for craps sake
+    set guioptions-=m "Hide the menu, see above
+    set go-=m go-=T go-=l go-=L go-=r go-=R go-=b go-=F
+
+    " Size and position the window well (only perform on startup)
+    if !exists('g:vimrc_loaded')
+        set columns=999
+        set lines=999
+        "winpos 999 5
+    endif
+
+    " Hightlight the current row. Index-guide plugin covers columns
+    set cursorline
+
+    " MacVim is very pretty
+    if has('gui_macvim')
+        " set transparency=8
+
+        " Fullscreen options
+        set fuoptions=maxvert
+        " au GUIEnter * set fullscreen
+    endif
+
+    " Set a pretty font
+    if has('win32')
+        " set guifont=Consolas:h11:b
+        set guifont=Inconsolata:h11:b
+        map <F11> <Esc>:call libcallnr($VIM."\\gvimfullscreen.dll", "ToggleFullScreen", 0)<CR>
+    elseif has('mac')
+        if !exists('g:vimrc_loaded')
+          set guifont=Menlo:h18
+        endif
+    endif
+else
+    "set nocursorline nocursorcolumn
+endif
 
 let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
 
@@ -63,7 +93,7 @@ set noswapfile
 set nu
 
 "python with virtualenv support
-py << EOF
+py3 << EOF
 import os.path
 import sys
 import vim
